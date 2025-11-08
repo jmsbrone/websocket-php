@@ -9,75 +9,78 @@ namespace WebSocket;
 function stream_socket_server($local_socket, &$errno, &$errstr)
 {
     $args = [$local_socket, $errno, $errstr];
+
     return MockSocket::handle('stream_socket_server', $args);
 }
-function stream_socket_accept()
+
+function stream_socket_accept(...$args)
 {
-    $args = func_get_args();
     return MockSocket::handle('stream_socket_accept', $args);
 }
-function stream_set_timeout()
+
+function stream_set_timeout(...$args)
 {
-    $args = func_get_args();
     return MockSocket::handle('stream_set_timeout', $args);
 }
-function stream_get_line()
+
+function stream_get_line(...$args)
 {
-    $args = func_get_args();
     return MockSocket::handle('stream_get_line', $args);
 }
-function stream_get_meta_data()
+
+function stream_get_meta_data(...$args)
 {
-    $args = func_get_args();
     return MockSocket::handle('stream_get_meta_data', $args);
 }
-function feof()
+
+function feof(...$args)
 {
-    $args = func_get_args();
     return MockSocket::handle('feof', $args);
 }
-function ftell()
+
+function ftell(...$args)
 {
-    $args = func_get_args();
     return MockSocket::handle('ftell', $args);
 }
-function fclose()
+
+function fclose(...$args)
 {
-    $args = func_get_args();
     return MockSocket::handle('fclose', $args);
 }
-function fwrite()
+
+function fwrite(...$args)
 {
-    $args = func_get_args();
     return MockSocket::handle('fwrite', $args);
 }
-function fread()
+
+function fread(...$args)
 {
-    $args = func_get_args();
     return MockSocket::handle('fread', $args);
 }
-function fgets()
+
+function fgets(...$args)
 {
-    $args = func_get_args();
     return MockSocket::handle('fgets', $args);
 }
-function stream_context_create()
+
+function stream_context_create(...$args)
 {
-    $args = func_get_args();
     return MockSocket::handle('stream_context_create', $args);
 }
+
 function stream_socket_client($remote_socket, &$errno, &$errstr, $timeout, $flags, $context)
 {
     $args = [$remote_socket, $errno, $errstr, $timeout, $flags, $context];
+
     return MockSocket::handle('stream_socket_client', $args);
 }
-function get_resource_type()
+
+function get_resource_type(...$args)
 {
-    $args = func_get_args();
     return MockSocket::handle('get_resource_type', $args);
 }
-function stream_socket_get_name()
+
+function stream_socket_get_name(...$args)
 {
-    $args = func_get_args();
     return MockSocket::handle('stream_socket_get_name', $args);
 }

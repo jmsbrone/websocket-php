@@ -2,7 +2,7 @@
 
 /**
  * Simple send & receive client for test purpose.
- * Run in console: php examples/send.php <options> <message>
+ * Run in console: php examples/send.php <options> <message>.
  *
  * Console options:
  *  --uri <uri> : The URI to connect to, default ws://localhost:8000
@@ -12,7 +12,9 @@
 
 namespace WebSocket;
 
-require __DIR__ . '/../vendor/autoload.php';
+use Throwable;
+
+require __DIR__.'/../vendor/autoload.php';
 
 error_reporting(-1);
 
@@ -20,8 +22,8 @@ echo "> Send client\n";
 
 // Server options specified or random
 $options = array_merge([
-    'uri'           => 'ws://localhost:8000',
-    'opcode'        => 'text',
+    'uri' => 'ws://localhost:8000',
+    'opcode' => 'text',
 ], getopt('', ['uri:', 'opcode:', 'debug']));
 $message = array_pop($argv);
 
@@ -46,6 +48,6 @@ try {
     }
     $client->close();
     echo "> Closing client\n";
-} catch (\Throwable $e) {
+} catch (Throwable $e) {
     echo "ERROR: {$e->getMessage()} [{$e->getCode()}]\n";
 }

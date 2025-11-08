@@ -2,6 +2,4 @@
 
 namespace WebSocket;
 
-class BadUriException extends Exception
-{
-}
+class BadUriException extends Exception {}

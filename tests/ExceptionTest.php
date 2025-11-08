@@ -13,7 +13,7 @@ use Throwable;
 
 class ExceptionTest extends TestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         error_reporting(-1);
     }
@@ -30,20 +30,20 @@ class ExceptionTest extends TestCase
                     ConnectionException::TIMED_OUT
                 )
             );
-        } catch (Throwable $e) {
+        } catch (Throwable $throwable) {
         }
 
-        $this->assertInstanceOf('WebSocket\ConnectionException', $e);
-        $this->assertInstanceOf('WebSocket\Exception', $e);
-        $this->assertInstanceOf('Exception', $e);
-        $this->assertInstanceOf('Throwable', $e);
-        $this->assertEquals('An error message', $e->getMessage());
-        $this->assertEquals(1025, $e->getCode());
-        $this->assertEquals(['test' => 'with data'], $e->getData());
+        $this->assertInstanceOf(ConnectionException::class, $throwable);
+        $this->assertInstanceOf(Exception::class, $throwable);
+        $this->assertInstanceOf('Exception', $throwable);
+        $this->assertInstanceOf('Throwable', $throwable);
+        $this->assertEquals('An error message', $throwable->getMessage());
+        $this->assertEquals(1025, $throwable->getCode());
+        $this->assertEquals(['test' => 'with data'], $throwable->getData());
 
-        $p = $e->getPrevious();
-        $this->assertInstanceOf('WebSocket\TimeoutException', $p);
-        $this->assertInstanceOf('WebSocket\ConnectionException', $p);
+        $p = $throwable->getPrevious();
+        $this->assertInstanceOf(TimeoutException::class, $p);
+        $this->assertInstanceOf(ConnectionException::class, $p);
         $this->assertEquals('Nested exception', $p->getMessage());
         $this->assertEquals(1024, $p->getCode());
         $this->assertEquals([], $p->getData());

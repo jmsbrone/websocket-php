@@ -9,6 +9,4 @@
 
 namespace WebSocket;
 
-class TimeoutException extends ConnectionException
-{
-}
+final class TimeoutException extends ConnectionException {}

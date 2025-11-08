@@ -9,18 +9,25 @@
 
 namespace WebSocket\Message;
 
+use Override;
 use DateTime;
+use Stringable;
 
-abstract class Message
+abstract class Message implements Stringable
 {
     protected $opcode;
-    protected $payload;
-    protected $timestamp;
 
-    public function __construct(string $payload = '')
+    protected DateTime $timestamp;
+
+    public function __construct(protected string $payload = '')
     {
-        $this->payload = $payload;
         $this->timestamp = new DateTime();
+    }
+
+    #[Override]
+    public function __toString(): string
+    {
+        return static::class;
     }
 
     public function getOpcode(): string
@@ -50,25 +57,21 @@ abstract class Message
 
     public function hasContent(): bool
     {
-        return $this->payload != '';
-    }
-
-    public function __toString(): string
-    {
-        return get_class($this);
+        return '' !== $this->payload;
     }
 
     // Split messages into frames
     public function getFrames(bool $masked = true, int $framesize = 4096): array
     {
-
         $frames = [];
         $split = str_split($this->getContent(), $framesize) ?: [''];
         foreach ($split as $payload) {
             $frames[] = [false, $payload, 'continuation', $masked];
         }
+
         $frames[0][2] = $this->opcode;
         $frames[array_key_last($frames)][0] = true;
+
         return $frames;
     }
 }
